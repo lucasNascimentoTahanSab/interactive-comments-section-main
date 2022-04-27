@@ -16,7 +16,7 @@ export default class RankingButton extends React.Component {
     return (
       <div className="">
         <PlusButton action={this._plus.bind(this)}></PlusButton>
-        <span>{this.state.value}</span>
+        <span className="">{this.state.value}</span>
         <MinusButton action={this._minus.bind(this)}></MinusButton>
       </div>
     )

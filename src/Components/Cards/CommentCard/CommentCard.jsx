@@ -15,8 +15,8 @@ export default class CommentCard extends React.Component {
 
     this.comment = React.createRef()
     this.state = {
-      rankingPosition: this.props.comment.score,
-      commentContent: this.props.comment.content
+      rankingPosition: props.comment.score,
+      commentContent: props.comment.content
     }
   }
 
@@ -25,6 +25,7 @@ export default class CommentCard extends React.Component {
       <article className="">
         <div className="">
           <RankingButton
+            value={this.state.rankingPosition}
             plus={this._increasePositionInRanking.bind(this)}
             minus={this._decreasePositionInRanking.bind(this)} />
         </div>
