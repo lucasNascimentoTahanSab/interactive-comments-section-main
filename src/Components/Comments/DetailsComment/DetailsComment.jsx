@@ -1,19 +1,22 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import UserContext from '../../../Context/UserContext/UserContext.js'
 import PhotoUser from '../../Users/PhotoUser/PhotoUser.jsx'
 
-export default class DetailsComment extends React.Component {
-  // eslint-disable-next-line no-useless-constructor
-  constructor(props) {
-    super(props)
+export default function DetailsComment(props) {
+  const { currentUser } = useContext(UserContext)
+
+  function _showIfCurrentUser() {
+    return currentUser.username === props.comment.user.username
+      ? (<span className="">you</span>)
+      : null
   }
 
-  render() {
-    return (
-      <div className="">
-        <PhotoUser photo={this.props.comment.user.image.png} />
-        <span className="">{this.props.comment.user.username}</span>
-        <span className="">{this.props.comment.createdAt}</span>
-      </div>
-    )
-  }
+  return (
+    <div className="">
+      <PhotoUser photo={props.comment.user.image.png} />
+      <span className="">{props.comment.user.username}</span>
+      {_showIfCurrentUser()}
+      <span className="">{props.comment.createdAt}</span>
+    </div>
+  )
 }
