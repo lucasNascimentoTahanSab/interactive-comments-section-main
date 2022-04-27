@@ -5,6 +5,7 @@ import DetailsComment from '../../Comments/DetailsComment/DetailsComment.jsx'
 import ReplyButton from '../../Buttons/ReplyButton/ReplyButton.jsx'
 import DeleteButton from '../../Buttons/DeleteButton/DeleteButton.jsx'
 import EditButton from '../../Buttons/EditButton/EditButton.jsx'
+import SendButton from '../../Buttons/SendButton/SendButton.jsx'
 
 export default class CommentCard extends React.Component {
   constructor(props) {
@@ -13,6 +14,10 @@ export default class CommentCard extends React.Component {
     this.button = new Button()
 
     this.comment = React.createRef()
+    this.state = {
+      rankingPosition: this.props.comment.score,
+      commentContent: this.props.comment.content
+    }
   }
 
   render() {
@@ -31,7 +36,17 @@ export default class CommentCard extends React.Component {
             {this._editButton()}
           </div>
           <div className="">
-            <textarea ref={this.comment} className="" cols="30" rows="10" disabled></textarea>
+            <textarea
+              ref={this.comment}
+              className=""
+              cols="30"
+              rows="10"
+              value={this.state.commentContent}
+              disabled>
+            </textarea>
+          </div>
+          <div className="">
+            <SendButton label="Update" action={this._update.bind(this)} />
           </div>
         </div>
       </article>
@@ -51,10 +66,12 @@ export default class CommentCard extends React.Component {
   }
 
   _increasePositionInRanking() {
+    this.setState({ rankingPosition: this.state.rankingPosition + 1 })
     this.button.execute(this.props.increasePositionInRanking)
   }
 
   _decreasePositionInRanking() {
+    this.setState({ rankingPosition: this.state.rankingPosition - 1 })
     this.button.execute(this.props.decreasePositionInRanking)
   }
 
@@ -68,6 +85,12 @@ export default class CommentCard extends React.Component {
 
   _edit() {
     this.comment.current.disabled = !this.comment.current.disabled
+    this.comment.current.style.focus = !this.comment.current.style.focus
     this.button.execute(this.props.edit)
+  }
+
+  _update() {
+    this.setState({ commentContent: this.comment.current.value })
+    this.button.execute(this.props.update, { target: this.comment.current })
   }
 }

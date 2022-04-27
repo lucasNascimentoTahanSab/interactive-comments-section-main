@@ -1,7 +1,7 @@
 export default class Button {
-  execute(action) {
+  execute(action, params) {
     if (typeof action !== 'function') return
 
-    action()
+    action(params)
   }
 }

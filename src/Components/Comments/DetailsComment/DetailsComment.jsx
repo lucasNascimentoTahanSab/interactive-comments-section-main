@@ -12,8 +12,13 @@ export default class DetailsComment extends React.Component {
       <div className="">
         <PhotoUser photo={this.props.comment.user.image.png} />
         <span className="">{this.props.comment.user.username}</span>
+        {this._showIfCurrentUser()}
         <span className="">{this.props.comment.createdAt}</span>
       </div>
     )
+  }
+
+  _showIfCurrentUser() {
+    return (<span className="">you</span>)
   }
 }
