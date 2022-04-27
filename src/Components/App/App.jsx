@@ -5,8 +5,8 @@ import UserContext from '../../Context/UserContext/UserContext.js'
 function App() {
   return (
     <div className="App">
-      <UserContext user={data.currentUser}>
-      </UserContext>
+      <UserContext.Provider user={data.currentUser}>
+      </UserContext.Provider>
     </div>
   )
 }
